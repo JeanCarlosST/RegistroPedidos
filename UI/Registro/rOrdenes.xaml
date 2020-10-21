@@ -1,0 +1,273 @@
+﻿<Window x:Class="RegistroPedidos.UI.Registro.rOrdenes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RegistroPedidos.UI.Registro"
+        mc:Ignorable="d"
+        Title="Registro de ordenes" 
+        Height="530" Width="580"
+        WindowStartupLocation="CenterScreen" Background="#FF2D2D30">
+
+    <Window.Resources>
+
+        <Style x:Key="BotonEstilo" TargetType="{x:Type Button}">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF007ACC"/>
+                    <Setter Property="FontSize" Value="13"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ComboBoxButtonStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Background="#FF333337" x:Name="border" BorderThickness="0,1,1,1" BorderBrush="Black">
+                            <ContentPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ComboBoxTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid>
+                            <Border BorderThickness="1,1,0,1" Background="#FF333337" BorderBrush="Black">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                            
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ComboBoxEstilo" TargetType="{x:Type ComboBox}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition MaxWidth="18"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox Name="PART_EditableTextBox" IsEnabled="False"
+                                     Style="{StaticResource ComboBoxTextBoxStyle}" 
+                                     Padding="5,0,0,0" Height="{TemplateBinding Height}"/>
+
+                            <ToggleButton Grid.Column="1" Margin="0" 
+                                          Height="{TemplateBinding Height}" 
+                                          Style="{StaticResource ComboBoxButtonStyle}" 
+                                          Focusable="False"  
+                                          IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                          ClickMode="Press">
+                                <Path Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 3 4 L 6 0 Z" Fill="White" />
+                            </ToggleButton>
+
+                            <ContentPresenter Grid.Column="0" Name="ContentSite" 
+                                              Content="{TemplateBinding SelectionBoxItem}" 
+                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"  
+                                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" 
+                                              VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+
+                            <Popup Grid.Column="0" Name="Popup" Placement="Bottom" 
+                                   IsOpen="{TemplateBinding IsDropDownOpen}" 
+                                   AllowsTransparency="False" 
+                                   Focusable="False" PopupAnimation="Slide">
+                                
+                                <Grid Name="DropDown" SnapsToDevicePixels="True" 
+                                      MinWidth="{TemplateBinding ActualWidth}" 
+                                      MaxHeight="{TemplateBinding MaxDropDownHeight}">
+
+                                    <Border x:Name="DropDownBorder" BorderThickness="1" Background="#FF333337" BorderBrush="Black"/>
+                                    <ScrollViewer Margin="3" SnapsToDevicePixels="True" Foreground="White">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <!-- ID -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Label Content="Orden Id: " Width="70" VerticalAlignment="Center" Foreground="White"/>
+            <TextBox x:Name="OrdenIdTextBox" Text="{Binding OrdenId}" Width="80" Height="20" VerticalContentAlignment="Center" BorderBrush="Black" Background="#FF333337" Foreground="White"/>
+            <Button x:Name="BuscarBoton" Width="85" Height="30" Margin="10,0,0,0" Click="BuscarBoton_Click" BorderBrush="Black" Background="#FF02A5ED" Style="{StaticResource BotonEstilo}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="18" Height="18" Source="/Imagenes/search.png"/>
+                    <Label Content="Buscar" Foreground="Black" FontWeight="Bold"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <!-- Fecha -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Label Content="Fecha: " Width="70" VerticalAlignment="Center" Foreground="White"/>
+            <DatePicker x:Name="FechaDatePicker" Width="130" Height="25" SelectedDate="{Binding Fecha}" HorizontalAlignment="Left" BorderBrush="Black" Background="#FF333337"/>
+        </StackPanel>
+
+        <!-- Suplidor -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Label Content="Suplidor: " Width="70" VerticalAlignment="Center" Foreground="White"/>
+            <ComboBox x:Name="SuplidorComboBox" Width="130" Height="25" SelectedValue="{Binding SuplidorId}" HorizontalAlignment="Left" BorderBrush="Black" Background="{x:Null}" Style="{StaticResource ComboBoxEstilo}"/>
+        </StackPanel>
+
+        <!-- Detalle -->
+        <GroupBox Header="Detalle" Grid.Row="3" Foreground="White" BorderBrush="Black" BorderThickness="0.5">
+                       
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Productos -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Label Content="Productos:" Foreground="White"/>
+                        <ComboBox x:Name="ProductoComboBox" Width="130" Height="25" BorderBrush="#FFACACAC"  Style="{StaticResource ComboBoxEstilo}"/>
+                    </StackPanel>
+
+                    <!-- Costo -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <Label Content="Costo:" Foreground="White"/>
+                        <TextBox x:Name="CostoTextBox" Width="80" Height="20" VerticalContentAlignment="Center" BorderBrush="Black" Background="#FF333337" Foreground="White"/>
+                    </StackPanel>
+
+                    <!-- Cantidad -->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal">
+                        <Label Content="Cantidad:" Foreground="White"/>
+                        <TextBox x:Name="CantidadTextBox" Width="50" Height="20" VerticalContentAlignment="Center" BorderBrush="Black" Background="#FF333337" Foreground="White"/>
+                    </StackPanel>
+
+                    <!-- Agregar botón -->
+                    <Button x:Name="AgregarBoton" Grid.Column="3" Width="85" Height="28" Margin="5,0,0,0" HorizontalAlignment="Right" Click="AgregarBoton_Click" Background="#FF18EB39" BorderBrush="Black" Style="{StaticResource BotonEstilo}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="18" Height="18" Source="/Imagenes/add.png"/>
+                            <Label Content="Agregar" Foreground="Black" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+                <DataGrid x:Name="DetalleDataGrid" RowHeaderWidth="0"
+                          AutoGenerateColumns="False" Margin="0,8,0,0" IsReadOnly="True" Height="160" 
+                          HorizontalScrollBarVisibility="Disabled" BorderBrush="Black" Background="#FF333337">
+                    
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                        <Grid Background="{TemplateBinding Background}">
+                                            <ContentPresenter VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.CellStyle>
+
+                    <DataGrid.Resources>
+                        <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Background" Value="#FF1B1B1C"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Height" Value="24"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="BorderBrush" Value="White"/>
+                            <Setter Property="BorderThickness" Value="0.2,0,0.5,0"/>
+                        </Style>
+                        <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="{x:Type DataGridRow}">
+                            <Setter Property="Background" Value="#FF333337"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Style>
+
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Producto" Width="*" Binding="{Binding Producto}"/>
+                        <DataGridTextColumn Header="Cantidad" Width=".5*" Binding="{Binding Cantidad}"/>
+                        <DataGridTextColumn Header="Costo" Width=".7*" Binding="{Binding Costo}"/>
+                        <DataGridTextColumn Header="Subtotal" Width="*" Binding="{Binding SubTotal}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Productos datagrid -->
+
+                <!-- Remover botón -->
+                <Button x:Name="RemoverBoton" Width="85" Height="28" Margin="0,5,0,0" HorizontalAlignment="Right" Click="RemoverBoton_Click" Background="#FFF02121" BorderBrush="Black" Style="{StaticResource BotonEstilo}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="18" Height="18" Source="/Imagenes/cancel.png"/>
+                        <Label Content="Remover" Foreground="Black" FontWeight="Bold"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Monto -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label Content="Monto: " Width="70" VerticalAlignment="Center" Foreground="White"/>
+            <TextBox x:Name="MontoTextBox" Text="{Binding Monto}" Width="150" Height="25" VerticalContentAlignment="Center" IsReadOnly="True" HorizontalAlignment="Left" BorderBrush="Black" Background="#FF333337" Foreground="White"/>
+        </StackPanel>
+
+        <!-- Botones inferiores -->
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="30">
+            <Button x:Name="NuevoBoton" Width="90" Margin="5,0,0,0" Background="#FFFCEF32" BorderBrush="Black" Click="NuevoBoton_Click" Style="{StaticResource BotonEstilo}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="18" Height="18" Source="/Imagenes/new.png"/>
+                    <Label Content="Nuevo" Foreground="Black" FontWeight="Bold"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="GuardarBoton" Width="90" Margin="20,0,0,0" Background="#FF18EB39" BorderBrush="Black" Click="GuardarBoton_Click" Style="{StaticResource BotonEstilo}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="18" Height="18" Source="/Imagenes/save.png"/>
+                    <Label Content="Guardar" FontWeight="Bold"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="EliminarBoton" Width="90" Margin="20,0,0,0" Background="#FFF02121" BorderBrush="Black" Click="EliminarBoton_Click" Style="{StaticResource BotonEstilo}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="18" Height="18" Source="/Imagenes/delete.png"/>
+                    <Label Content="Eliminar" FontWeight="Bold"/>
+                </StackPanel>
+            </Button>
+
+        </StackPanel>
+
+    </Grid>
+
+</Window>
