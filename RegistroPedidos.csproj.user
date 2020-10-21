@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ShowAllFiles>true</ShowAllFiles>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="UI\Consultas\cOrdenes.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Consultas\cProductos.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Consultas\cSuplidores.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Registro\rOrdenes.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="UI\Consultas\cOrdenes.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Consultas\cProductos.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Consultas\cSuplidores.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Registro\rOrdenes.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>
