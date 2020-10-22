@@ -24,9 +24,9 @@ namespace RegistroPedidos.DAL
 
             modelBuilder.Entity<Productos>().HasData(new List<Productos>()
                 { 
-                    new Productos(1, "Jugo de naranja", 50M, 100),
-                    new Productos(2, "Galletas saladas", 30M, 80),
-                    new Productos(3, "Funda de pan sobao", 50M, 30)
+                    new Productos(1, "Jugo de naranja", 50M, 0),
+                    new Productos(2, "Galletas saladas", 30M, 0),
+                    new Productos(3, "Funda de pan sobao", 50M, 0)
                 }
             );
 
