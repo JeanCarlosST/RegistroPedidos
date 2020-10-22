@@ -11,6 +11,109 @@ namespace RegistroPedidos.BLL
 {
     public class ProductosBLL
     {
+        public static bool Existe(int id)
+        {
+            Contexto context = new Contexto();
+            bool found = false;
+
+            try
+            {
+                found = context.Productos.Any(p => p.ProductoId == id);
+
+            }
+            catch
+            {
+                throw;
+
+            }
+            finally
+            {
+                context.Dispose();
+            }
+
+            return found;
+        }
+        public static bool Guardar(Productos producto)
+        {
+            if (!Existe(producto.ProductoId))
+                return Insertar(producto);
+            else
+                return Modificar(producto);
+        }
+        private static bool Insertar(Productos producto)
+        {
+            Contexto context = new Contexto();
+            bool found = false;
+
+            try
+            {
+                context.Productos.Add(producto);
+                found = context.SaveChanges() > 0;
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                context.Dispose();
+            }
+
+            return found;
+        }
+        public static bool Modificar(Productos producto)
+        {
+            Contexto context = new Contexto();
+            bool found = false;
+
+            try
+            {
+                context.Entry(producto).State = EntityState.Modified;
+                found = context.SaveChanges() > 0;
+
+            }
+            catch
+            {
+                throw;
+
+            }
+            finally
+            {
+                context.Dispose();
+            }
+
+            return found;
+        }
+        public static bool Eliminar(int id)
+        {
+            Contexto context = new Contexto();
+            bool found = false;
+
+            try
+            {
+                var producto = context.Productos.Find(id);
+
+                if (producto != null)
+                {
+                    context.Productos.Remove(producto);
+                    found = context.SaveChanges() > 0;
+                }
+
+            }
+            catch
+            {
+                throw;
+
+            }
+            finally
+            {
+                context.Dispose();
+            }
+
+            return found;
+        }
+
+
         public static Productos Buscar(int id)
         {
             Contexto context = new Contexto();

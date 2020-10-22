@@ -25,6 +25,13 @@ namespace RegistroPedidos.BLL
 
             try
             {
+                foreach(OrdenesDetalle d in orden.Detalle)
+                {
+                    Productos p = ProductosBLL.Buscar(d.ProductoId);
+                    p.Inventario += d.Cantidad;
+                    ProductosBLL.Modificar(p);
+                }
+
                 context.Ordenes.Add(orden);
                 found = context.SaveChanges() > 0;
             } 
@@ -47,6 +54,22 @@ namespace RegistroPedidos.BLL
 
             try
             {
+                //Reduce en el inventario la cantidad que habia antes
+                foreach (OrdenesDetalle d in Buscar(orden.OrdenId).Detalle)
+                {
+                    Productos p = ProductosBLL.Buscar(d.ProductoId);
+                    p.Inventario -= d.Cantidad;
+                    ProductosBLL.Modificar(p);
+                }
+
+                //Agrega al inventario la nueva cantidad asignada
+                foreach (OrdenesDetalle d in orden.Detalle)
+                {
+                    Productos p = ProductosBLL.Buscar(d.ProductoId);
+                    p.Inventario += d.Cantidad;
+                    ProductosBLL.Modificar(p);
+                }
+
                 context.Database.ExecuteSqlRaw($"delete from OrdenesDetalle where OrdenId = {orden.OrdenId}");
                 foreach(var anterior in orden.Detalle)
                 {
@@ -75,10 +98,17 @@ namespace RegistroPedidos.BLL
 
             try
             {
-                var orden = context.Ordenes.Find(id);
+                Ordenes orden = Buscar(id);
 
-                if(orden != null)
+                if (orden != null)
                 {
+                    foreach (OrdenesDetalle d in orden.Detalle)
+                    {
+                        Productos p = ProductosBLL.Buscar(d.ProductoId);
+                        p.Inventario -= d.Cantidad;
+                        ProductosBLL.Modificar(p);
+                    }
+
                     context.Ordenes.Remove(orden);
                     found = context.SaveChanges() > 0;
                 }
