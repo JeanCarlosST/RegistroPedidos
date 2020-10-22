@@ -63,6 +63,8 @@ namespace RegistroPedidos.UI.Registro
 
             if (anterior != null)
             {
+                Limpiar();
+
                 orden = anterior;
 
                 foreach(OrdenesDetalle o in orden.Detalle)
