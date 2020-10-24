@@ -51,6 +51,8 @@
         <Menu Background="#FF252526" Foreground="White">
             <MenuItem Header="_Registros" Style="{StaticResource MenuItem}">
                 <MenuItem x:Name="rOrdenesMenuItem" Header="Registro de ordenes" Click="rOrdenesMenuItem_Click" Style="{StaticResource MenuItem}"/>
+                <MenuItem x:Name="rProductosMenuItem" Header="Registro de productos" Click="rProductosMenuItem_Click" Style="{StaticResource MenuItem}"/>
+                <MenuItem x:Name="rSuplidoresMenuItem" Header="Registro de suplidores" Click="rSuplidoresMenuItem_Click" Style="{StaticResource MenuItem}"/>
             </MenuItem>
 
             <MenuItem Header="_Consultas" Style="{StaticResource MenuItem}">

@@ -32,6 +32,17 @@ namespace RegistroPedidos
             new rOrdenes().Show();
         }
 
+        public void rProductosMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            new rProductos().Show();
+        }
+
+        public void rSuplidoresMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            new rSuplidores().Show();
+        }
+
+
         public void cOrdenesMenuItem_Click(object sender, RoutedEventArgs e)
         {
             new cOrdenes().Show();
