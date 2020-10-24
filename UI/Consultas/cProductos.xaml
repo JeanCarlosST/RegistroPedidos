@@ -149,7 +149,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Producto Id" Binding="{Binding ProductoId}" Width=".4*"/>
                 <DataGridTextColumn Header="Descripcion" Binding="{Binding Descripcion}" Width="*"/>
-                <DataGridTextColumn Header="Costo" Binding="{Binding Costo}" Width=".5*"/>
+                <DataGridTextColumn Header="Costo" Binding="{Binding Costo, StringFormat=C}" Width=".5*"/>
                 <DataGridTextColumn Header="Inventario" Binding="{Binding Inventario}" Width=".5*"/>
             </DataGrid.Columns>
         </DataGrid>

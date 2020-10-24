@@ -27,6 +27,7 @@ namespace RegistroPedidos.UI.Consultas
         private void ConsultarBoton_Click(object sender, RoutedEventArgs e)
         {
             var listado = new List<Ordenes>();
+            var listadoFormateado = new List<object>();
 
             string criterio = CriterioTextBox.Text.Trim();
             if (criterio.Length > 0)
@@ -48,8 +49,20 @@ namespace RegistroPedidos.UI.Consultas
                 listado = OrdenesBLL.GetList(c => true);
             }
 
+            foreach(Ordenes o in listado)
+            {
+                listadoFormateado.Add(new
+                    {
+                        o.OrdenId,
+                        Suplidor = SuplidoresBLL.Buscar(o.SuplidorId).Nombres,
+                        o.Fecha,
+                        o.Monto
+                    }
+                );
+            }
+
             DatosDataGrid.ItemsSource = null;
-            DatosDataGrid.ItemsSource = listado;
+            DatosDataGrid.ItemsSource = listadoFormateado;
         }
     }
 }

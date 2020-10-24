@@ -148,9 +148,9 @@
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Orden Id" Binding="{Binding OrdenId}" Width=".4*"/>
-                <DataGridTextColumn Header="Suplidor" Binding="{Binding SuplidorId}" Width="*"/>
-                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}" Width=".7*"/>
-                <DataGridTextColumn Header="Monto" Binding="{Binding Monto}" Width=".5*"/>
+                <DataGridTextColumn Header="Suplidor" Binding="{Binding Suplidor}" Width="*"/>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, StringFormat=\{0:dd/MM/yyyy\}}" Width=".7*"/>
+                <DataGridTextColumn Header="Monto" Binding="{Binding Monto, StringFormat=C}" Width=".5*"/>
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>
