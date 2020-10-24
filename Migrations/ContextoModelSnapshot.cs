@@ -88,23 +88,79 @@ namespace RegistroPedidos.Migrations
                         new
                         {
                             ProductoId = 1,
-                            Costo = 50m,
+                            Costo = 75m,
                             Descripcion = "Jugo de naranja",
-                            Inventario = 100f
+                            Inventario = 0f
                         },
                         new
                         {
                             ProductoId = 2,
                             Costo = 30m,
                             Descripcion = "Galletas saladas",
-                            Inventario = 80f
+                            Inventario = 0f
                         },
                         new
                         {
                             ProductoId = 3,
-                            Costo = 50m,
+                            Costo = 60m,
                             Descripcion = "Funda de pan sobao",
-                            Inventario = 30f
+                            Inventario = 0f
+                        },
+                        new
+                        {
+                            ProductoId = 4,
+                            Costo = 50m,
+                            Descripcion = "Leche entera",
+                            Inventario = 0f
+                        },
+                        new
+                        {
+                            ProductoId = 5,
+                            Costo = 200m,
+                            Descripcion = "Leche descremada",
+                            Inventario = 0f
+                        },
+                        new
+                        {
+                            ProductoId = 6,
+                            Costo = 10m,
+                            Descripcion = "Hojuelitas de queso",
+                            Inventario = 0f
+                        },
+                        new
+                        {
+                            ProductoId = 7,
+                            Costo = 15m,
+                            Descripcion = "Platanitos",
+                            Inventario = 0f
+                        },
+                        new
+                        {
+                            ProductoId = 8,
+                            Costo = 25m,
+                            Descripcion = "Lays de queso",
+                            Inventario = 0f
+                        },
+                        new
+                        {
+                            ProductoId = 9,
+                            Costo = 50m,
+                            Descripcion = "Lata de maíz",
+                            Inventario = 0f
+                        },
+                        new
+                        {
+                            ProductoId = 10,
+                            Costo = 35m,
+                            Descripcion = "Lata de tomaticos",
+                            Inventario = 0f
+                        },
+                        new
+                        {
+                            ProductoId = 11,
+                            Costo = 60m,
+                            Descripcion = "Botella de ketchup",
+                            Inventario = 0f
                         });
                 });
 
@@ -136,6 +192,16 @@ namespace RegistroPedidos.Migrations
                         {
                             SuplidorId = 3,
                             Nombres = "Yoma"
+                        },
+                        new
+                        {
+                            SuplidorId = 4,
+                            Nombres = "Frito Lays"
+                        },
+                        new
+                        {
+                            SuplidorId = 5,
+                            Nombres = "La Famosa"
                         });
                 });
 

@@ -87,17 +87,57 @@ namespace RegistroPedidos.Migrations
             migrationBuilder.InsertData(
                 table: "Productos",
                 columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
-                values: new object[] { 1, 50m, "Jugo de naranja", 100f });
+                values: new object[] { 1, 75m, "Jugo de naranja", 0f });
 
             migrationBuilder.InsertData(
                 table: "Productos",
                 columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
-                values: new object[] { 2, 30m, "Galletas saladas", 80f });
+                values: new object[] { 2, 30m, "Galletas saladas", 0f });
 
             migrationBuilder.InsertData(
                 table: "Productos",
                 columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
-                values: new object[] { 3, 50m, "Funda de pan sobao", 30f });
+                values: new object[] { 3, 60m, "Funda de pan sobao", 0f });
+
+            migrationBuilder.InsertData(
+                table: "Productos",
+                columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
+                values: new object[] { 4, 50m, "Leche entera", 0f });
+
+            migrationBuilder.InsertData(
+                table: "Productos",
+                columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
+                values: new object[] { 5, 200m, "Leche descremada", 0f });
+
+            migrationBuilder.InsertData(
+                table: "Productos",
+                columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
+                values: new object[] { 6, 10m, "Hojuelitas de queso", 0f });
+
+            migrationBuilder.InsertData(
+                table: "Productos",
+                columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
+                values: new object[] { 7, 15m, "Platanitos", 0f });
+
+            migrationBuilder.InsertData(
+                table: "Productos",
+                columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
+                values: new object[] { 8, 25m, "Lays de queso", 0f });
+
+            migrationBuilder.InsertData(
+                table: "Productos",
+                columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
+                values: new object[] { 9, 50m, "Lata de maíz", 0f });
+
+            migrationBuilder.InsertData(
+                table: "Productos",
+                columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
+                values: new object[] { 10, 35m, "Lata de tomaticos", 0f });
+
+            migrationBuilder.InsertData(
+                table: "Productos",
+                columns: new[] { "ProductoId", "Costo", "Descripcion", "Inventario" },
+                values: new object[] { 11, 60m, "Botella de ketchup", 0f });
 
             migrationBuilder.InsertData(
                 table: "Suplidores",
@@ -113,6 +153,16 @@ namespace RegistroPedidos.Migrations
                 table: "Suplidores",
                 columns: new[] { "SuplidorId", "Nombres" },
                 values: new object[] { 3, "Yoma" });
+
+            migrationBuilder.InsertData(
+                table: "Suplidores",
+                columns: new[] { "SuplidorId", "Nombres" },
+                values: new object[] { 4, "Frito Lays" });
+
+            migrationBuilder.InsertData(
+                table: "Suplidores",
+                columns: new[] { "SuplidorId", "Nombres" },
+                values: new object[] { 5, "La Famosa" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ordenes_SuplidorId",
