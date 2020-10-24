@@ -55,6 +55,10 @@ namespace RegistroPedidos.UI.Registro
 
             DetalleDataGrid.ItemsSource = null;
             DetalleDataGrid.ItemsSource = detalle;
+
+            ProductoComboBox.SelectedIndex = -1;
+            CostoTextBox.Clear();
+            CantidadTextBox.Clear();
         }
 
         private void BuscarBoton_Click(object sender, RoutedEventArgs e)
@@ -97,9 +101,20 @@ namespace RegistroPedidos.UI.Registro
             OrdenesDetalle detalle = new OrdenesDetalle(
                 Utilities.ToInt(OrdenIdTextBox.Text),
                 Utilities.ToInt(ProductoComboBox.SelectedValue.ToString()),
-                Utilities.ToInt(CantidadTextBox.Text),
-                Utilities.ToInt(CostoTextBox.Text)
+                Utilities.ToFloat(CantidadTextBox.Text),
+                Utilities.ToDecimal(CostoTextBox.Text)
             );
+
+            foreach(OrdenesDetalle d in orden.Detalle)
+            {
+                if(d.ProductoId == detalle.ProductoId)
+                {
+                    orden.Monto -= (decimal)d.Cantidad * d.Costo;
+                    orden.Detalle.Remove(d);
+                    this.detalle.RemoveAll(de => Utilities.ToInt(de.GetType().GetProperty("ProductoId").GetValue(de).ToString()) == d.ProductoId);
+                    break;
+                }
+            }
 
             orden.Detalle.Add(detalle);
             orden.Monto += (decimal)detalle.Cantidad * detalle.Costo;
@@ -107,7 +122,7 @@ namespace RegistroPedidos.UI.Registro
             this.detalle.Add(new
                 {
                     detalle.OrdenDetalleId,
-                    detalle.OrdenId,
+                    OrdenId = detalle.OrdenId,
                     detalle.ProductoId,
                     Producto = ProductosBLL.Buscar(detalle.ProductoId).Descripcion,
                     detalle.Cantidad,
@@ -117,10 +132,6 @@ namespace RegistroPedidos.UI.Registro
             );
 
             Actualizar();
-
-            ProductoComboBox.SelectedIndex = -1;
-            CostoTextBox.Clear();
-            CantidadTextBox.Clear();
         }
 
         private void RemoverBoton_Click(object sender, RoutedEventArgs e)
@@ -129,9 +140,8 @@ namespace RegistroPedidos.UI.Registro
             {
                 object d = DetalleDataGrid.SelectedItem;
                 int productoId = Convert.ToInt32(d.GetType().GetProperty("ProductoId").GetValue(d).ToString());
-                int ordenDetalleId = Convert.ToInt32(d.GetType().GetProperty("OrdenDetalleId").GetValue(d).ToString());
 
-                OrdenesDetalle detalle = orden.Detalle.Where(p => p.ProductoId == productoId && p.OrdenDetalleId == ordenDetalleId).First();
+                OrdenesDetalle detalle = orden.Detalle.Where(p => p.ProductoId == productoId).First();
 
                 orden.Monto -= (decimal)detalle.Cantidad * detalle.Costo;
                 orden.Detalle.Remove(detalle);
@@ -139,7 +149,6 @@ namespace RegistroPedidos.UI.Registro
                 this.detalle.Remove(d);
 
                 Actualizar();
-
             }
         }
 
@@ -180,7 +189,7 @@ namespace RegistroPedidos.UI.Registro
 
         private bool ValidarDetalle()
         {
-            if (!Decimal.TryParse(CostoTextBox.Text, out _))
+            if (!decimal.TryParse(CostoTextBox.Text, out _))
             {
                 MessageBox.Show("Ingrese un costo que contenga un número válido", "Registro de Ordenes", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
@@ -235,6 +244,11 @@ namespace RegistroPedidos.UI.Registro
             return true;
         }
 
+        private void ProductoComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(ProductoComboBox.SelectedIndex != -1)
+                CostoTextBox.Text = ((Productos)ProductoComboBox.SelectedItem).Costo.ToString();
+        }
     }
 
 }

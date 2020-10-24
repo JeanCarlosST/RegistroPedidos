@@ -161,7 +161,7 @@
                     <!-- Productos -->
                     <StackPanel Grid.Column="0" Orientation="Horizontal">
                         <Label Content="Productos:" Foreground="White"/>
-                        <ComboBox x:Name="ProductoComboBox" Width="130" Height="25" BorderBrush="#FFACACAC"  Style="{StaticResource ComboBoxEstilo}"/>
+                        <ComboBox x:Name="ProductoComboBox" Width="130" Height="25" BorderBrush="#FFACACAC"  Style="{StaticResource ComboBoxEstilo}" SelectionChanged="ProductoComboBox_SelectionChanged"/>
                     </StackPanel>
 
                     <!-- Costo -->
@@ -223,7 +223,7 @@
                         <DataGridTextColumn Header="Producto" Width="*" Binding="{Binding Producto}"/>
                         <DataGridTextColumn Header="Cantidad" Width=".5*" Binding="{Binding Cantidad}"/>
                         <DataGridTextColumn Header="Costo" Width=".7*" Binding="{Binding Costo}"/>
-                        <DataGridTextColumn Header="Subtotal" Width="*" Binding="{Binding SubTotal}"/>
+                        <DataGridTextColumn Header="Subtotal" Width="*" Binding="{Binding SubTotal, StringFormat=C}"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
@@ -242,7 +242,7 @@
         <!-- Monto -->
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
             <Label Content="Monto: " Width="70" VerticalAlignment="Center" Foreground="White"/>
-            <TextBox x:Name="MontoTextBox" Text="{Binding Monto}" Width="150" Height="25" VerticalContentAlignment="Center" IsReadOnly="True" HorizontalAlignment="Left" BorderBrush="Black" Background="#FF333337" Foreground="White"/>
+            <TextBox x:Name="MontoTextBox" Text="{Binding Monto, StringFormat=C}" Width="150" Height="25" VerticalContentAlignment="Center" IsReadOnly="True" HorizontalAlignment="Left" BorderBrush="Black" Background="#FF333337" Foreground="White"/>
         </StackPanel>
 
         <!-- Botones inferiores -->
