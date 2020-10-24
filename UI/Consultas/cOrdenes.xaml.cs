@@ -39,28 +39,31 @@ namespace RegistroPedidos.UI.Consultas
                         break;
 
                     case 1:
-                        listado = OrdenesBLL.GetList(p => p.SuplidorId == Utilities.ToInt(CriterioTextBox.Text));
+                        listado = OrdenesBLL.GetList(p => true);
                         break;
 
                 }
             }
             else
             {
-                listado = OrdenesBLL.GetList(c => true);
+                listado = OrdenesBLL.GetList(p => true);
             }
 
             foreach(Ordenes o in listado)
             {
-                listadoFormateado.Add(new
-                    {
-                        o.OrdenId,
-                        Suplidor = SuplidoresBLL.Buscar(o.SuplidorId).Nombres,
-                        o.Fecha,
-                        o.Monto
-                    }
-                );
+                if(FiltroComboBox.SelectedIndex != 1 || (FiltroComboBox.SelectedIndex == 1 && SuplidoresBLL.Buscar(o.SuplidorId).Nombres.ToLower().Contains(criterio.ToLower())))
+                {
+                    listadoFormateado.Add(new
+                        {
+                            o.OrdenId,
+                            Suplidor = SuplidoresBLL.Buscar(o.SuplidorId).Nombres,
+                            o.Fecha,
+                            o.Monto
+                        }
+                    );
+                }
             }
-
+          
             DatosDataGrid.ItemsSource = null;
             DatosDataGrid.ItemsSource = listadoFormateado;
         }
